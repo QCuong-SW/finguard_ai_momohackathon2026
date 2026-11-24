@@ -1,0 +1,23 @@
+{
+  "incident_code": "INC-20261124-998",
+  "status": "READY_FOR_EXPORT",
+  "generated_at": "2026-11-24T10:35:00Z",
+  "victim_info": {
+    "name": "Nguyễn Văn A",
+    "masked_phone": "098****123"
+  },
+  "executive_summary": "Vụ việc lừa đảo mạo danh ngân hàng nâng hạn mức thẻ tín dụng. Nạn nhân nhận tin nhắn SMS Brandname giả mạo, truy cập link phishing và bị trừ tiền qua 2 giao dịch trái phép.",
+  "total_financial_loss": 8500000,
+  "timeline": [
+    {"time": "09:15 - 24/11/2026", "event": "Nhận SMS Brandname giả mạo báo 'Thẻ tín dụng được duyệt nâng hạn mức 50 triệu'."},
+    {"time": "09:22 - 24/11/2026", "event": "Truy cập đường link https://momo-support-upgrade.xyz và nhập thông tin tài khoản."},
+    {"time": "09:25 - 24/11/2026", "event": "Tài khoản bị trừ 5.000.000đ tới tài khoản nhận NGUYEN VAN B - STK: 1029384756."},
+    {"time": "09:28 - 24/11/2026", "event": "Tài khoản tiếp tục bị trừ 3.500.000đ."}
+  ],
+  "evidence_files": [
+    "evidence_sms_screenshot.png",
+    "evidence_phishing_url_whois.json",
+    "bank_statement_extract.pdf"
+  ],
+  "download_pdf_url": "/api/v1/incidents/INC-20261124-998/download-pdf"
+}

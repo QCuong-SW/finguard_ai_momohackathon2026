@@ -1,0 +1,24 @@
+{
+  "document_id": "doc_loan_4412",
+  "document_name": "Hop_Dong_Vay_Tieu_Dung_Nhanh.pdf",
+  "doc_type": "LOAN_CONTRACT",
+  "risk_rating": "HIGH_RISK",
+  "summary": "Hợp đồng vay tiêu dùng hạn mức 30.000.000đ trong 12 tháng. Có nhiều điều khoản bất lợi về lãi suất thả nổi và biểu phí phạt mập mờ.",
+  "hidden_traps": [
+    {
+      "category": "Lãi suất ngầm",
+      "clause_snippet": "Lãi suất ưu đãi 0.99%/tháng cho 3 tháng đầu, sau đó áp dụng biểu phí điều chỉnh theo chính sách từng thời kỳ.",
+      "trap_warning": "BẪY LÃI THẢ NỔI: Sau 3 tháng đầu, lãi suất thực tế có thể vọt lên 45% - 60%/năm nhưng không được ghi rõ con số trần."
+    },
+    {
+      "category": "Phí tất toán trước hạn",
+      "clause_snippet": "Bên vay nếu thanh toán trước thời hạn sẽ chịu phí vi phạm hợp đồng tương đương 15% trên dư nợ còn lại.",
+      "trap_warning": "PHÍ PHẠT CAO: Mức phí tất toán 15% cao hơn gấp 3 lần so với mức thông lệ thị trường (thường là 3-5%)."
+    }
+  ],
+  "suggested_questions": [
+    "Tổng số tiền lãi và gốc tôi phải trả sau 12 tháng là bao nhiêu?",
+    "Nếu tôi chậm trả 3 ngày thì bị tính phí phạt thế nào?",
+    "Hợp đồng này có cho phép bên cho vay gọi điện cho người thân không?"
+  ]
+}

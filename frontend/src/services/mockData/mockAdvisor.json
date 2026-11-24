@@ -1,0 +1,20 @@
+{
+  "advice_id": "adv_9921",
+  "recommendation": "CAUTION_HOLD",
+  "headline": "Cân nhắc hoãn khoản chi này sang tháng sau để tránh hụt ngân sách thiết yếu!",
+  "personalized_analysis": {
+    "current_budget_status": "Ngân sách Mua sắm tháng này của bạn còn lại 1.200.000đ. Khoản chi 4.200.000đ sẽ làm vượt hạn mức an toàn 250%.",
+    "upcoming_obligations": "Dựa trên lịch sử chu kỳ của bạn, vào ngày 28 hàng tháng bạn cần thanh toán tiền thuê nhà (4.500.000đ) và hóa đơn điện nước (800.000đ).",
+    "emergency_fund_impact": "Nếu chi ngay hôm nay, quỹ dự phòng khẩn cấp của bạn sẽ giảm xuống mức báo động (chỉ còn đủ trang trải 10 ngày sinh hoạt)."
+  },
+  "action_options": [
+    {
+      "option": "Trì hoãn mua sắm",
+      "description": "Đợi sau ngày 05 tháng sau (sau khi nhận lương) để không ảnh hưởng tiền nhà."
+    },
+    {
+      "option": "Chia nhỏ trả góp 6 tháng 0%",
+      "description": "Mỗi tháng chỉ trích 700.000đ, vẫn nằm trong hạn mức an toàn của bạn."
+    }
+  ]
+}

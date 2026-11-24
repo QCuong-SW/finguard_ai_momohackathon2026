@@ -1,0 +1,112 @@
+services:
+  # ==========================================
+  # 1. PostgreSQL 17 Database Service
+  # ==========================================
+  postgres:
+    image: postgres:17-alpine
+    container_name: finguard_postgres17
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-finguard_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-finguard_secret_pass_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-finguard_db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-finguard_admin} -d ${POSTGRES_DB:-finguard_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - finguard_network
+
+  # ==========================================
+  # 2. PgAdmin (Quản lý Database trực quan)
+  # ==========================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: finguard_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@finguard.ai
+      PGADMIN_DEFAULT_PASSWORD: admin_finguard_2026
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - finguard_network
+
+  # ==========================================
+  # 3. AI Engine (Python FastAPI)
+  # ==========================================
+  ai_engine:
+    build:
+      context: ./ai_engine
+      dockerfile: Dockerfile
+    container_name: finguard_ai_engine
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - AI_ENGINE_PORT=8000
+    networks:
+      - finguard_network
+
+  # ==========================================
+  # 4. Backend (NestJS)
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: finguard_backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - BACKEND_PORT=4000
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=finguard_admin
+      - POSTGRES_PASSWORD=finguard_secret_pass_2026
+      - POSTGRES_DB=finguard_db
+      - AI_ENGINE_URL=http://ai_engine:8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ai_engine:
+        condition: service_started
+    networks:
+      - finguard_network
+
+  # ==========================================
+  # 5. Frontend (Next.js + Tailwind CSS)
+  # ==========================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: finguard_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
+      - NEXT_PUBLIC_USE_MOCK=false
+    depends_on:
+      - backend
+    networks:
+      - finguard_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  finguard_network:
+    driver: bridge

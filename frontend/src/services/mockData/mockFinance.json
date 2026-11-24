@@ -1,0 +1,42 @@
+{
+  "period": "LAST_30_DAYS",
+  "anomaly_count": 2,
+  "balance": 18500000,
+  "monthly_budget": 10000000,
+  "spent_this_month": 7200000,
+  "burn_rate": {
+    "days_passed_percent": 40,
+    "budget_spent_percent": 72,
+    "status": "FAST_BURN_WARNING",
+    "message": "Bạn đã tiêu hết 72% ngân sách tháng dù mới qua 12 ngày!"
+  },
+  "recent_transactions": [
+    {
+      "id": "tx_01",
+      "amount": 2500000,
+      "category": "Chuyển khoản",
+      "recipient": "NGUYEN VAN X - MB BANK",
+      "timestamp": "2026-11-23T02:15:00Z",
+      "is_anomaly": true,
+      "anomaly_reason": "Giao dịch phát sinh vào khung giờ 2:15 sáng (lệch so với lịch sử sinh hoạt)."
+    },
+    {
+      "id": "tx_02",
+      "amount": 99000,
+      "category": "Dịch vụ số",
+      "recipient": "GLOBAL_DIGITAL_SERVICES_HK",
+      "timestamp": "2026-11-23T08:30:00Z",
+      "is_anomaly": true,
+      "anomaly_reason": "Giao dịch lặp lại lần thứ 4 trong tuần với số tiền nhỏ cố định tới dịch vụ nước ngoài."
+    },
+    {
+      "id": "tx_03",
+      "amount": 65000,
+      "category": "Ăn uống",
+      "recipient": "Cà phê Highland",
+      "timestamp": "2026-11-24T09:00:00Z",
+      "is_anomaly": false,
+      "anomaly_reason": null
+    }
+  ]
+}

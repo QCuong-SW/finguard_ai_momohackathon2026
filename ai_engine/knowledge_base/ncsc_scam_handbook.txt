@@ -1,0 +1,11 @@
+# CẨM NĂNG NHẬN DIỆN 24 HÌNH THỨC LỪA ĐẢO TRỰC TUYẾN (CỤC AN TOÀN THÔNG TIN - NCSC & BỘ CÔNG AN)
+
+1. Giả danh cơ quan công an, viện kiểm sát, tòa án thông báo liên quan đường dây rửa tiền, vi phạm giao thông, yêu cầu chuyển tiền vào "tài khoản an toàn" hoặc khai báo thông tin OTP để phục vụ điều tra.
+Ghi nhớ: Cơ quan công an KHÔNG BAO GIỜ làm việc qua điện thoại, mạng xã hội, KHÔNG BAO GIỜ yêu cầu chuyển tiền qua tài khoản cá nhân.
+
+2. Giả mạo tin nhắn SMS Brandname của Ngân hàng hoặc Ví điện tử (như MoMo) thông báo tài khoản bị đăng nhập bất thường, thẻ được duyệt nâng hạn mức tín dụng, yêu cầu bấm vào đường link lạ để xác thực.
+Ghi nhớ: Tuyệt đối không click vào link có đuôi lạ (.online, .top, .xyz). Ngân hàng không bao giờ gửi link yêu cầu nhập mã OTP hoặc mật khẩu đăng nhập.
+
+3. Tuyển cộng tác viên làm nhiệm vụ trên sàn thương mại điện tử, xem video Tik Tok, đánh giá khách sạn hưởng hoa hồng cao. Ban đầu trả hoa hồng thật cho các đơn nhỏ, sau đó yêu cầu nạp số tiền lớn để "giải cứu đơn hàng" rồi chiếm đoạt.
+
+4. Giả danh nhân viên viễn thông hoặc ngân hàng yêu cầu nâng cấp SIM 4G/5G hoặc sinh trắc học khuôn mặt để đánh cắp mã OTP và quyền kiểm soát tài khoản.

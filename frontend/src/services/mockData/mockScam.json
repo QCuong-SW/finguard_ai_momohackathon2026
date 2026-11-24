@@ -1,0 +1,30 @@
+{
+  "scan_id": "scam_scan_98231",
+  "risk_score": 92,
+  "risk_level": "CRITICAL",
+  "summary": "Phát hiện kịch bản giả mạo Cơ quan Công an và đe dọa pháp lý khẩn cấp nhằm chiếm đoạt tài sản.",
+  "psychological_manipulation": [
+    {
+      "tactic": "Authority Impersonation (Mạo danh quyền lực)",
+      "evidence": "Em là cán bộ phòng CSGT...",
+      "explanation": "Kẻ gian tự xưng là cán bộ công an để gây áp lực phục tùng."
+    },
+    {
+      "tactic": "Fear Inducement & False Urgency (Tạo sợ hãi & Gấp gáp ảo)",
+      "evidence": "...nộp ngay trong 24h, nếu không sẽ khóa tài khoản và khởi tố...",
+      "explanation": "Tạo tâm lý hoảng loạn, khiến nạn nhân không kịp kiểm chứng thông tin."
+    }
+  ],
+  "url_analysis": {
+    "url": "http://tra-cuu-phat-nguoi-cand.online/pay",
+    "is_phishing": true,
+    "domain_age_days": 3,
+    "warning": "Tên miền đuôi .online mới đăng ký 3 ngày trước, giả mạo Cổng thông tin CAND (tên miền chính thức của nhà nước phải có đuôi .gov.vn)."
+  },
+  "actionable_checklist": [
+    "TUYỆT ĐỐI KHÔNG truy cập vào đường link nói trên.",
+    "Cơ quan Công an KHÔNG làm việc, thu tiền phạt nguội qua tin nhắn Zalo/SMS.",
+    "Nếu cần kiểm tra phạt nguội, hãy vào website chính thức: csgt.vn.",
+    "Chặn và báo cáo số điện thoại/tài khoản này."
+  ]
+}
