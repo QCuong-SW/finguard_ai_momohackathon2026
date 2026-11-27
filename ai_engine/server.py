@@ -1,26 +1,49 @@
 """
-FinGuard AI Engine - Internal FastAPI Microservice
-Được gọi từ NestJS Backend qua AiBridgeService
+FinGuard AI Engine - Internal FastAPI Microservice (Package-by-Feature + Read-Only Fixed RAG)
+Được gọi từ NestJS Backend qua AiBridgeService.
 """
+import logging
 import os
+from contextlib import asynccontextmanager
+
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from models.schemas import (
-    ScamAnalyzeRequest, ScamAnalyzeResponse,
-    RagAnalyzeRequest, RagAnalyzeResponse,
-    AdvisorRequest, AdvisorResponse
+from core.llm_client import llm_client
+from core.vector_store import vector_store
+from features.advisor.controller import router as advisor_router
+from features.contract_rag.controller import router as contract_rag_router
+from features.scam.controller import router as scam_router
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
-from pipelines.scam_analyzer import ScamAnalyzer
-from pipelines.rag_engine import RAGEngine
-from pipelines.persona_advisor import PersonaAdvisor
-from pipelines.ocr_pipeline import OCRPipeline
+logger = logging.getLogger("FinGuardAIEngine")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Đảm bảo kho tri thức cố định (Read-Only KB) sẵn sàng trước khi nhận request."""
+    vector_store.ensure_ready()
+    logger.info(
+        "FinGuard AI Engine ready | rag_backend=%s | gemini_ready=%s | model=%s",
+        vector_store.backend,
+        llm_client.is_ready,
+        llm_client.model,
+    )
+    yield
+
 
 app = FastAPI(
     title="FinGuard AI Engine",
-    description="Microservice xử lý AI (NLP, LLM, RAG, Anomaly Detection, XAI) cho FinGuard AI",
-    version="1.0.0"
+    description=(
+        "Microservice xử lý AI (Gemini API, Read-Only Fixed Domain RAG, XAI) "
+        "theo kiến trúc Package-by-Feature cho FinGuard AI"
+    ),
+    version="2.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -31,33 +54,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Khởi tạo các pipeline
-scam_analyzer = ScamAnalyzer()
-rag_engine = RAGEngine()
-persona_advisor = PersonaAdvisor()
-ocr_pipeline = OCRPipeline()
+# Mount các Feature Routers (tuyệt đối không expose endpoint ghi/xóa KB ra ngoài)
+app.include_router(scam_router)
+app.include_router(contract_rag_router)
+app.include_router(advisor_router)
+
 
 @app.get("/")
 def health_check():
-    return {"status": "ok", "service": "FinGuard AI Engine", "ready": True}
+    return {
+        "status": "ok",
+        "service": "FinGuard AI Engine",
+        "ready": True,
+        "rag_mode": "read-only-fixed-kb",
+        "rag_backend": vector_store.backend,
+        "gemini_ready": llm_client.is_ready,
+        "gemini_model": llm_client.model,
+    }
 
-# 1. Endpoint Scam Analyzer & XAI
-@app.post("/api/v1/ai/scam/analyze", response_model=ScamAnalyzeResponse)
-def analyze_scam(req: ScamAnalyzeRequest):
-    result = scam_analyzer.analyze(content=req.content, input_type=req.type, context=req.context)
-    return result
-
-# 2. Endpoint RAG Document Analyzer
-@app.post("/api/v1/ai/rag/analyze-doc", response_model=RagAnalyzeResponse)
-def analyze_document(req: RagAnalyzeRequest):
-    result = rag_engine.analyze_document_traps(doc_name=req.doc_name, text=req.text or "")
-    return result
-
-# 3. Endpoint Persona Decision Advisor
-@app.post("/api/v1/ai/advisor/recommend", response_model=AdvisorResponse)
-def recommend_advice(req: AdvisorRequest):
-    result = persona_advisor.recommend(action=req.action, persona=req.persona)
-    return result
 
 if __name__ == "__main__":
     port = int(os.getenv("AI_ENGINE_PORT", 8000))
